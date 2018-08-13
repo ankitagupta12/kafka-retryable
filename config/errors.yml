@@ -1,0 +1,7 @@
+en:
+  errors:
+    valid_buffer?: >
+      Invalid buffer name
+      Allowable buffer names: kafka
+    sym?: Not a valid symbol name
+    klass?: Not a valid class name
