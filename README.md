@@ -29,8 +29,8 @@ Class KafkaConsumer
   include Kafka::Retryable::HandleFailure
     
   failure_handler buffer: :kafka, 
-                           dead_letter_queue: :topic_t1, 
-                           exception_blacklist: [Karafka::InvalidMessageError]
+                  dead_letter_queue: :topic_t1, 
+                  exception_blacklist: [Karafka::InvalidMessageError]
     
   def consume
     # Message consumption logic goes here
