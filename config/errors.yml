@@ -5,3 +5,4 @@ en:
       Allowable buffer names: kafka
     sym?: Not a valid symbol name
     klass?: Not a valid class name
+    is_a_proc?: Not a valid proc

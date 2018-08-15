@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+require 'kafka/retryable/policies/kafka_handler'
 module Kafka
   module Retryable
-    class PolicyFinder
+    # Find policy based on the failure handler settings
+    class   PolicyFinder
       POLICY_MAPPING = {
         kafka: Kafka::Retryable::Policies::KafkaHandler
       }.freeze

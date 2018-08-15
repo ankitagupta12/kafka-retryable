@@ -33,7 +33,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'dry-configurable', '~> 0.7'
   spec.add_dependency 'dry-validation', '~> 0.11'
-  spec.add_dependency 'waterdrop', '~> 1.0'
+  spec.add_dependency 'pheromone', '~> 0.5'
 
   spec.add_development_dependency 'bundler', '~> 1.15'
 end
