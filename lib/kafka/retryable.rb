@@ -1,6 +1,3 @@
-require 'kafka/retryable/handle_failure'
-require 'kafka/retryable/config'
-require 'waterdrop'
 module Kafka
   module Retryable
     class << self
@@ -20,3 +17,13 @@ module Kafka
     end
   end
 end
+
+
+require 'dry-configurable'
+require 'dry-validation'
+require 'waterdrop'
+require 'kafka/retryable/schemas/failure_handler_options'
+require 'kafka/retryable/errors/invalid_handling_options'
+require 'kafka/retryable/policy_finder'
+require 'kafka/retryable/handle_failure'
+require 'kafka/retryable/config'

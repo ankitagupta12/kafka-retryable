@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'dry-configurable'
 module Kafka::Retryable
   # configurator for setting up all the configurable settings for pheromone
   class Config

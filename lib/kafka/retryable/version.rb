@@ -3,6 +3,6 @@
 module Kafka
   # Current Kafka::Retryable version
   module Retryable
-    VERSION = '0.1.0'
+    VERSION = '0.1.2'
   end
 end

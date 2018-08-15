@@ -4,4 +4,4 @@ require 'bundler'
 Bundler.setup
 
 require 'waterdrop'
-require 'kafka/retryable'
+require 'kafka-retryable'
