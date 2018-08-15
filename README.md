@@ -34,8 +34,8 @@ Or install it yourself as:
 
 These are the available configurations:
 
-| Option                        | Value type    | Description                      | Default                      |
-|-------------------------------|---------------|----------------------------------|
+| Option                        | Value type    | Description                      | Default |                      
+|-------------------------------|---------------|----------------------------------|---------|
 | failure_handling.enabled     | Boolean        | Set if buffering failed messages to a topic in Kafka is enabled | true |
 | buffer.kafka.seedbrokers    | Array        | Kafka broker URL. Example: kafka://127.0.0.1:9092 or kafka+ssl://127.0.0.1:909 | nil |
 
