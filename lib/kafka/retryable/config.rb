@@ -13,13 +13,13 @@ module Kafka::Retryable
 
     setting :failure_handling do
       # specify if failure handling is enabled
-      setting :enabled
+      setting :enabled, true
     end
 
     class << self
       def setup(&block)
         configure(&block)
-        setup_waterdrop
+        setup_waterdrop if config.buffer.kafka.seed_brokers
       end
 
       def setup_waterdrop

@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 require 'kafka/retryable/message_dispatcher/kafka'
 module Kafka
   module Retryable::Policies
@@ -11,6 +10,7 @@ module Kafka
       end
 
       def perform_failure_recovery
+        return unless Kafka::Retryable.enabled?
         Kafka::Retryable::MessageDispatcher::Kafka.new(@message, @topic).perform
       end
     end

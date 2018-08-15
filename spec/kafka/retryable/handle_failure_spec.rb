@@ -4,6 +4,13 @@ describe Kafka::Retryable::HandleFailure do
     include Kafka::Retryable::HandleFailure
   end
 
+  before do
+    Kafka::Retryable.setup do |config|
+      config.failure_handling.enabled = true
+      config.buffer.kafka.seed_brokers = ['kafka://localhost:9092']
+    end
+  end
+
   context '#failure_handler' do
     it 'will initialize failure configuration for valid config' do
       Consumer.class_eval do
@@ -34,7 +41,7 @@ describe Kafka::Retryable::HandleFailure do
   end
 
   context '#handle_failure' do
-    let!(:consumer_class_override) do
+    before do
       Consumer.class_eval do
         failure_handler buffer: :kafka,
                         dead_letter_queue: 'queue',
@@ -42,7 +49,7 @@ describe Kafka::Retryable::HandleFailure do
       end
     end
     context 'policy kafka' do
-      let!(:waterdrop) do
+      before do
         allow(WaterDrop::SyncProducer).to receive(:call)
       end
 
@@ -71,7 +78,7 @@ describe Kafka::Retryable::HandleFailure do
       end
 
       context 'in case of no failures' do
-        let!(:consumer_instance_override) do
+        before do
           class Consumer
             def consume
               handle_failure(message.to_json) do

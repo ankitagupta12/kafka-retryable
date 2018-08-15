@@ -20,9 +20,27 @@ Or install it yourself as:
 
 ## Usage
 
-`kafka_retryable` currently only supports failure buffers via `kafka`, and will soon support failure handling policies using other queueing systems for buffers and retry mechanisms.
+`kafka_retryable` allows failed messages to be buffered into a `dead_letter_queue` inside Kafka. In the future, it will provision for retry mechanisms and the ability to buffer in other messaging systems. 
 
-1. Start with declaring configuration parameters for your class using the following syntax:
+
+1. Setup the gem by setting configuration parameters. In a rails project, this can be done inside `config/initializers/kafka_retryable.rb` for instance:
+
+```
+ Kafka::Retryable.setup do |config|
+   config.failure_handling.enabled = true
+   config.buffer.kafka.seed_brokers = ['kafka://localhost:9092']
+ end
+```
+
+These are the available configurations:
+
+| Option                        | Value type    | Description                      | Default                      |
+|-------------------------------|---------------|----------------------------------|
+| failure_handling.enabled     | Boolean        | Set if buffering failed messages to a topic in Kafka is enabled | true |
+| buffer.kafka.seedbrokers    | Array        | Kafka broker URL. Example: kafka://127.0.0.1:9092 or kafka+ssl://127.0.0.1:909 | nil |
+
+
+2. Start with declaring configuration parameters for your class using the following syntax:
 
 ```
 Class KafkaConsumer
@@ -46,7 +64,7 @@ end
 
 If `exception_blacklist` and `exception_whitelist` are both missing, then the error handling logic will apply for all exception classes.   
 
-2. Enclose message processing logic inside `handle_failure(message)` helper method provided by `kafka-retryable`
+3. Enclose message processing logic inside `handle_failure(message)` helper method provided by `kafka-retryable`
 
 ```
 handle_failure(message) do

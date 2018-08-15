@@ -1,4 +1,5 @@
 require 'kafka/retryable/handle_failure'
+require 'kafka/retryable/config'
 require 'waterdrop'
 module Kafka
   module Retryable
@@ -13,9 +14,8 @@ module Kafka
         Config.setup(&block)
       end
 
-      # @return [String] root path of this gem
-      def gem_root
-        Pathname.new(File.expand_path('../..', __FILE__))
+      def enabled?
+       config.failure_handling.enabled
       end
     end
   end
