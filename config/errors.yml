@@ -3,6 +3,6 @@ en:
     valid_buffer?: >
       Invalid buffer name
       Allowable buffer names: kafka
-    sym?: Not a valid symbol name
+    sym?: Not a valid symbol
     klass?: Not a valid class name
     is_a_proc?: Not a valid proc

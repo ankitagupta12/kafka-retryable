@@ -30,8 +30,9 @@ Class KafkaConsumer
     
   failure_handler buffer: :kafka, 
                   dead_letter_queue: :topic_t1, 
-                  exception_blacklist: [Karafka::InvalidMessageError]
-    
+                  exception_blacklist: [Karafka::InvalidMessageError],
+                  after_failure: ->(error, message) { Bugsnag.notify("#{error}-#{message}") }
+                 
   def consume
     # Message consumption logic goes here
   end
@@ -41,6 +42,7 @@ end
 - `dead_letter_queue`: Topic where the consumer should enqueue the failure message.
 - `exception_blacklist`: List of exception classes for which the error handling logic does not apply
 - `exception_whitelist`: List of exception classes for which the error handling logic should apply
+- `after_failure`: Accepts a proc that is executed after failure handling is completed
 
 If `exception_blacklist` and `exception_whitelist` are both missing, then the error handling logic will apply for all exception classes.   
 
@@ -60,7 +62,8 @@ Class KafkaConsumer
     
   failure_handler buffer: :kafka, 
                            dead_letter_queue: :topic_t1, 
-                           exception_blacklist: [Karafka::InvalidMessageError]
+                           exception_blacklist: [Karafka::InvalidMessageError],
+                           after_failure: ->(error, message) { Bugsnag.notify("#{error}-#{message}") }
     
   def consume
     handle_failure(message)

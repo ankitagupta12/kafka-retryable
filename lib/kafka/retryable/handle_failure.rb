@@ -2,7 +2,6 @@ require 'kafka/retryable'
 require 'kafka/retryable/schemas/failure_handler_options'
 require 'kafka/retryable/errors/invalid_handling_options'
 require 'kafka/retryable/policy_finder'
-
 module Kafka
   module Retryable
     module HandleFailure
