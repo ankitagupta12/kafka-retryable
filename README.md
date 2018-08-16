@@ -37,19 +37,19 @@ These are the available configurations:
 | Option                        | Value type    | Description                      | Default |                      
 |-------------------------------|---------------|----------------------------------|---------|
 | failure_handling.enabled     | Boolean        | Set if buffering failed messages to a topic in Kafka is enabled | true |
-| buffer.kafka.seedbrokers    | Array        | Kafka broker URL. Example: kafka://127.0.0.1:9092 or kafka+ssl://127.0.0.1:909 | nil |
+| buffer.kafka.seed_brokers    | Array        | Kafka broker URL. Example: kafka://127.0.0.1:9092 or kafka+ssl://127.0.0.1:909 | nil |
 
 
 2. Start with declaring configuration parameters for your class using the following syntax:
 
 ```
 Class KafkaConsumer
-  include Kafka::Retryable::HandleFailure
+  include Kafka::Retryable::FailureHandler
     
-  failure_handler buffer: :kafka, 
-                  dead_letter_queue: :topic_t1, 
-                  exception_blacklist: [Karafka::InvalidMessageError],
-                  after_failure: ->(error, message) { Bugsnag.notify("#{error}-#{message}") }
+  configure_handler buffer: :kafka, 
+                    dead_letter_queue: :topic_t1, 
+                    exception_blacklist: [Karafka::InvalidMessageError],
+                    after_failure: ->(error, message) { Bugsnag.notify("#{error}-#{message}") }
                  
   def consume
     # Message consumption logic goes here
@@ -76,12 +76,12 @@ Overall, this is how Kafka Consumers using `kafka-retryable` will look like:
 
 ```
 Class KafkaConsumer
-  include Kafka::Retryable::HandleFailure
+  include Kafka::Retryable::FailureHandler
     
-  failure_handler buffer: :kafka, 
-                           dead_letter_queue: :topic_t1, 
-                           exception_blacklist: [Karafka::InvalidMessageError],
-                           after_failure: ->(error, message) { Bugsnag.notify("#{error}-#{message}") }
+  configure_handler buffer: :kafka, 
+                    dead_letter_queue: :topic_t1, 
+                    exception_blacklist: [Karafka::InvalidMessageError],
+                    after_failure: ->(error, message) { Bugsnag.notify("#{error}-#{message}") }
     
   def consume
     handle_failure(message)

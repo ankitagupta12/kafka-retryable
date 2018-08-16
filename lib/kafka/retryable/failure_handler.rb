@@ -1,6 +1,6 @@
 module Kafka
   module Retryable
-    module HandleFailure
+    module FailureHandler
       module ClassMethods
         # Define failure handler configuration here
         #     failure_handler buffer: :kafka,
@@ -9,7 +9,7 @@ module Kafka
         #                     after_failure: ->(error, _) { Bugsnag.notify(error) }
         #
         # Only buffer and dead_letter_queue are required arguments
-        def failure_handler(failure_handling_options)
+        def configure_handler(failure_handling_options)
           validate_options(failure_handling_options)
           @@failure_configuration ||= {}
           @@failure_configuration[to_s] = failure_handling_options

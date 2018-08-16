@@ -1,7 +1,7 @@
-require 'kafka/retryable/handle_failure'
-describe Kafka::Retryable::HandleFailure do
+require 'kafka/retryable/failure_handler'
+describe Kafka::Retryable::FailureHandler do
   class Consumer
-    include Kafka::Retryable::HandleFailure
+    include Kafka::Retryable::FailureHandler
   end
 
   before do
@@ -11,10 +11,10 @@ describe Kafka::Retryable::HandleFailure do
     end
   end
 
-  context '#failure_handler' do
+  context '#configure_handler' do
     it 'will initialize failure configuration for valid config' do
       Consumer.class_eval do
-        failure_handler buffer: :kafka,
+        configure_handler buffer: :kafka,
                         dead_letter_queue: 'queue',
                         after_failure: ->(message, value) { puts "#{message} #{value}" }
       end
@@ -29,7 +29,7 @@ describe Kafka::Retryable::HandleFailure do
     it 'will raise error for invalid configuration' do
       expect do
         Consumer.class_eval do
-          failure_handler buffer: 'kafka',
+          configure_handler buffer: 'kafka',
                           dead_letter_queue: 'queue',
                           after_failure: ->(message, value) { puts "#{message} #{value}" }
 
@@ -43,7 +43,7 @@ describe Kafka::Retryable::HandleFailure do
   context '#handle_failure' do
     before do
       Consumer.class_eval do
-        failure_handler buffer: :kafka,
+        configure_handler buffer: :kafka,
                         dead_letter_queue: 'queue',
                         after_failure: ->(message, value) { puts "#{message} #{value}" }
       end
