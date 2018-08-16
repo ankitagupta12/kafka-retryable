@@ -1,6 +1,6 @@
 module Kafka
   module Retryable
-    module FailureHandler
+    module HandleFailure
       module ClassMethods
         # Define failure handler configuration here
         #     failure_handler buffer: :kafka,

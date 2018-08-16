@@ -1,7 +1,7 @@
-require 'kafka/retryable/failure_handler'
-describe Kafka::Retryable::FailureHandler do
+require 'kafka/retryable/handle_failure'
+describe Kafka::Retryable::HandleFailure do
   class Consumer
-    include Kafka::Retryable::FailureHandler
+    include Kafka::Retryable::HandleFailure
   end
 
   before do

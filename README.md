@@ -44,7 +44,7 @@ These are the available configurations:
 
 ```
 Class KafkaConsumer
-  include Kafka::Retryable::FailureHandler
+  include Kafka::Retryable::HandleFailure
     
   configure_handler buffer: :kafka, 
                     dead_letter_queue: :topic_t1, 
@@ -76,7 +76,7 @@ Overall, this is how Kafka Consumers using `kafka-retryable` will look like:
 
 ```
 Class KafkaConsumer
-  include Kafka::Retryable::FailureHandler
+  include Kafka::Retryable::HandleFailure
     
   configure_handler buffer: :kafka, 
                     dead_letter_queue: :topic_t1, 
